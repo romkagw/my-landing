@@ -61,6 +61,11 @@ export default function Home() {
                 transition={{ duration: 0.8 }}
             >
                 <ScalesIcon className="h-16 w-16 text-amber-600 dark:text-amber-300 mb-4" />
+                <img
+                    src="/natalia.jpg" // Путь к фото, можно положить в public/
+                    alt="Наталия Галушко"
+                    className="h-[75vw] w-[75vw] max-w-[400px] max-h-[400px]  rounded-full object-cover object-top mb-5 border-2 border-amber-400 shadow-lg"
+                />
                 <h1 className="text-5xl font-extrabold mb-2 text-black dark:text-zinc-50">
                     Наталия Галушко
                 </h1>
