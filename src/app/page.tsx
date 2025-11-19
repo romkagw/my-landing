@@ -2,105 +2,139 @@
 
 import { motion } from "framer-motion";
 
-export default function Home() {
-    const careerSteps = [
-        { title: "ВПО — Внутренне перемещённая особа", description: "Начало пути", icon: "📌" },
-        { title: "Секретарь суда", description: "Первый опыт в судебной системе", icon: "🗂️" },
-        { title: "Заместитель Алины", description: "Помощь и поддержка руководства", icon: "⚖️" },
-        { title: "Главный помощник главы суда", description: "Высокий уровень ответственности", icon: "🏛️" },
-    ];
-
+// SVG inline для весов
+function ScalesIcon({ className }: { className?: string }) {
     return (
-        <div className="relative flex min-h-screen flex-col items-center justify-start overflow-hidden bg-gradient-to-br from-zinc-100 via-white to-zinc-200 py-10 dark:from-black dark:via-zinc-950 dark:to-black px-4">
+        <svg
+            viewBox="0 0 216.757 216.757"
+            xmlns="http://www.w3.org/2000/svg"
+            className={className}
+        >
+            <path
+                d="M214.257,187.552H124.78c-1.381,0-2.5-1.119-2.5-2.5V173.63c0-1.381,1.119-2.5,2.5-2.5h89.478
+	c1.381,0,2.5,1.119,2.5,2.5v11.422C216.757,186.433,215.638,187.552,214.257,187.552z M127.28,182.552h84.478v-6.422H127.28V182.552
+	z M7.148,144.969c-1.06,0-2.043-0.679-2.381-1.742l-4.648-14.605c-0.419-1.316,0.308-2.722,1.624-3.141L77.091,101.5
+	c0.63-0.201,1.317-0.143,1.906,0.162c0.589,0.305,1.033,0.831,1.233,1.462l0.491,1.542l37.688-11.994l-0.947-2.975
+	c-0.201-0.632-0.144-1.318,0.161-1.907c0.305-0.589,0.831-1.033,1.463-1.234l6.622-2.107l-1.225-3.849
+	c-0.201-0.632-0.144-1.318,0.161-1.907s0.831-1.033,1.463-1.234l3.979-1.266l-2.033-6.388l-0.293,0.093
+	c-0.627,0.2-1.277,0.301-1.932,0.301l0,0c-2.785,0-5.224-1.784-6.068-4.438l-2.399-7.542c-2.104-6.612,1.563-13.703,8.175-15.807
+	L165.163,29.8c1.241-0.395,2.525-0.595,3.818-0.595c5.501,0,10.318,3.524,11.987,8.77l2.4,7.542
+	c1.064,3.347-0.792,6.936-4.137,8.001l-0.293,0.093l2.033,6.388l3.979-1.267c0.633-0.2,1.318-0.143,1.907,0.162
+	c0.589,0.305,1.033,0.831,1.233,1.462l9.527,29.935c0.201,0.632,0.144,1.318-0.161,1.907s-0.831,1.033-1.463,1.234l-3.979,1.267
+	l2.032,6.388l0.292-0.093c0.628-0.2,1.278-0.301,1.933-0.301c2.784,0,5.223,1.783,6.068,4.438l2.4,7.542
+	c1.02,3.203,0.73,6.611-0.813,9.597c-1.544,2.986-4.158,5.191-7.361,6.21l-39.626,12.611c-1.241,0.395-2.525,0.595-3.817,0.595
+	c-0.001,0-0.001,0-0.001,0c-5.501,0-10.319-3.524-11.988-8.77l-2.4-7.542c-0.516-1.62-0.369-3.345,0.412-4.856
+	s2.104-2.627,3.726-3.144l0.292-0.093l-2.032-6.388l-3.979,1.267c-1.312,0.416-2.722-0.308-3.14-1.624l-1.226-3.849l-6.622,2.107
+	c-1.313,0.417-2.722-0.308-3.14-1.624l-0.947-2.976l-37.688,11.994l0.49,1.542c0.419,1.316-0.308,2.722-1.624,3.141l-75.349,23.98
+	C7.655,144.931,7.4,144.969,7.148,144.969z M5.641,129.487l3.132,9.841l70.584-22.464l-3.132-9.841L5.641,129.487z M170.122,113.947
+	l-25.735,8.19c-0.348,0.111-0.632,0.351-0.8,0.675s-0.199,0.695-0.089,1.043l2.4,7.543c1.006,3.161,3.909,5.286,7.224,5.286
+	c0,0,0,0,0.001,0c0.776,0,1.551-0.121,2.302-0.36l39.626-12.611c1.93-0.614,3.505-1.943,4.436-3.743s1.104-3.853,0.491-5.784
+	l-2.4-7.542c-0.226-0.704-0.998-1.119-1.721-0.889L170.122,113.947z M145.896,109.376l2.032,6.387l41.355-13.161l-2.032-6.388
+	L145.896,109.376z M82.239,109.431l0.634,1.992l37.688-11.994l-0.634-1.992L82.239,109.431z M134.519,95.642l3.499,10.994
+	l54.078-17.211l-8.011-25.17l-54.078,17.211l1.223,3.842c0.001,0.002,0.002,0.004,0.002,0.007L134.519,95.642z M122.986,90.562
+	l4.045,12.708l4.239-1.349l-4.044-12.708L122.986,90.562z M132.819,68.289l2.033,6.388l41.355-13.162l-2.033-6.388L132.819,68.289z
+	 M168.981,34.205c-0.777,0-1.552,0.121-2.303,0.36l-39.626,12.611c-3.984,1.268-6.194,5.542-4.927,9.526l2.4,7.542
+	c0.224,0.705,1,1.119,1.719,0.889l51.471-16.38c0.719-0.229,1.118-1.001,0.889-1.72l-2.399-7.542
+	C175.198,36.329,172.295,34.205,168.981,34.205z"
+                fill="currentColor"
+            />
+        </svg>
+    );
+}
 
-            {/* Верхний блок с гербом и заголовком */}
+// Карьерная лестница
+const careerSteps = [
+    { title: "ВПО — Внутренне перемещённая особа", emoji: "🛶" },
+    { title: "Секретарь суда", emoji: "📂" },
+    { title: "Заместитель Алины", emoji: "⚖️" },
+    { title: "Главный помощник главы суда", emoji: "🏛️" },
+];
+
+export default function Home() {
+    return (
+        <div className="flex flex-col min-h-screen bg-gradient-to-br from-zinc-100 via-white to-zinc-200 dark:from-black dark:via-zinc-900 dark:to-black px-4 py-10">
+            {/* Hero блок */}
             <motion.div
-                initial={{ opacity: 0, y: -20 }}
+                className="flex flex-col items-center text-center mb-16"
+                initial={{ opacity: 0, y: -50 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7 }}
-                className="flex flex-col items-center gap-4"
+                transition={{ duration: 0.8 }}
             >
-                <div className="flex gap-4 items-center mb-2">
-                    <img
-                        src="https://www.svgrepo.com/show/33186/scales.svg"
-                        alt="Весы справедливости"
-                        className="h-10 w-10 text-amber-600 dark:invert"
-                    />
-                    <img
-                        src="https://uxwing.com/wp-content/themes/uxwing/download/justice-law/gavel-law.svg"
-                        alt="Молоток судьи"
-                        className="h-10 w-10 text-amber-600 dark:invert"
-                    />
-                </div>
-                <h1 className="text-4xl font-extrabold text-black dark:text-zinc-50 text-center">
-                    Почётная страница
+                <ScalesIcon className="h-16 w-16 text-amber-600 dark:text-amber-300 mb-4" />
+                <h1 className="text-5xl font-extrabold mb-2 text-black dark:text-zinc-50">
+                    Наталия Галушко
                 </h1>
-                <p className="text-xl text-zinc-700 dark:text-zinc-300 text-center">
-                    Галушко Наталия Олеговна <br />— Главный помощник главы Кировского суда
+                <p className="text-xl text-zinc-700 dark:text-zinc-300 max-w-xl">
+                    Главный помощник главы Кировского суда — та самая супергероиня ВПО, которая умеет всё:
+                    от документов до справедливости!
                 </p>
             </motion.div>
 
-            {/* Блок под грамоту */}
-            <motion.div
-                initial={{ scale: 0.95, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 0.5, duration: 0.7 }}
-                className="mt-10 flex w-full max-w-md items-center justify-center"
-            >
-                <div className="relative flex h-96 w-full max-w-md items-center justify-center rounded-2xl border-4 border-amber-400/40 bg-zinc-50 px-4 text-center text-lg font-medium text-zinc-600 shadow-xl dark:border-amber-300/30 dark:bg-zinc-800 dark:text-zinc-300 sm:h-[460px]">
-                    Здесь будет грамота
-                </div>
-            </motion.div>
-
-            {/* Хронология */}
-            <motion.div
+            {/* История успеха */}
+            <motion.section
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.8, duration: 0.7 }}
-                className="mt-16 w-full max-w-3xl flex flex-col items-start relative"
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="max-w-3xl mx-auto mb-16 bg-white dark:bg-zinc-800 p-8 rounded-xl shadow-lg"
             >
-                <div className="absolute left-6 top-0 bottom-0 w-1 bg-amber-400/60 dark:bg-amber-300/60 rounded-full"></div>
-                {careerSteps.map((step, idx) => (
-                    <motion.div
-                        key={idx}
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: idx * 0.3, duration: 0.7 }}
-                        className="relative mb-12 pl-16"
-                    >
-                        <div className="absolute left-0 top-0 h-6 w-6 rounded-full bg-amber-400/80 dark:bg-amber-300 flex items-center justify-center text-white text-sm shadow-md">
-                            {step.icon}
-                        </div>
-                        <h3 className="text-xl font-semibold text-black dark:text-zinc-50">
-                            {step.title}
-                        </h3>
-                        <p className="mt-1 text-zinc-600 dark:text-zinc-400">
-                            {step.description}
-                        </p>
-                    </motion.div>
-                ))}
-            </motion.div>
+                <h2 className="text-3xl font-bold mb-4 text-black dark:text-zinc-50">
+                    История успеха Наталии
+                </h2>
+                <p className="mb-3 text-zinc-700 dark:text-zinc-300">
+                    Наталия — внутренняя перемещённая особа из Херсонщины, которая с улыбкой
+                    покинула оккупированные территории и начала жизнь заново в Кропивницком.
+                </p>
+                <p className="mb-3 text-zinc-700 dark:text-zinc-300">
+                    Она имеет юридическое образование и при поддержке службы занятости
+                    смогла устроиться секретарём суда, а затем — стремительно взлететь
+                    по карьерной лестнице до Главного помощника главы суда.
+                </p>
+                <p className="mb-3 text-zinc-700 dark:text-zinc-300">
+                    Этот пример показывает, что ВПО не только могут найти работу, но и стать легендой суда!
+                </p>
+            </motion.section>
 
-            {/* Нижний блок: Зоряна */}
+            {/* Карьерная лестница */}
+            <motion.section
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="max-w-3xl mx-auto mb-16"
+            >
+                <h2 className="text-3xl font-bold mb-6 text-center text-black dark:text-zinc-50">
+                    Карьерная лестница супергероини
+                </h2>
+                <div className="flex flex-col gap-6">
+                    {careerSteps.map((step, i) => (
+                        <motion.div
+                            key={i}
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: i * 0.2 }}
+                            className="flex items-center gap-4 bg-white dark:bg-zinc-700 p-4 rounded-lg shadow-md"
+                        >
+                            <span className="text-2xl">{step.emoji}</span>
+                            <span className="font-semibold text-black dark:text-zinc-50">{step.title}</span>
+                        </motion.div>
+                    ))}
+                </div>
+            </motion.section>
+
+            {/* Нижний блок с юмором */}
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.5, duration: 0.8 }}
-                className="mt-12 w-full max-w-3xl rounded-xl border-2 border-dashed border-zinc-300 bg-zinc-100 py-4 text-center text-lg font-medium text-red-600 dark:border-zinc-600 dark:bg-zinc-800 dark:text-red-400"
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-center mt-16"
             >
-                Зоряна нервно курит в сторонке
+                <p className="text-zinc-600 dark:text-zinc-400">
+                    Зоряна нервно курит в сторонке, наблюдая как Наталия покоряет вершины суда. 🚬😅
+                </p>
             </motion.div>
-
-            {/* Footer */}
-            <motion.footer
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.8, duration: 0.7 }}
-                className="mt-6 text-sm text-zinc-400 dark:text-zinc-500"
-            >
-                © {new Date().getFullYear()} Страница почёта
-            </motion.footer>
         </div>
     );
 }
