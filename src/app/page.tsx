@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import {AnimatePresence, motion} from "framer-motion";
+import {useState, useEffect} from "react";
 
 // SVG inline для весов
 function ScalesIcon({ className }: { className?: string }) {
@@ -46,11 +47,37 @@ function ScalesIcon({ className }: { className?: string }) {
 const careerSteps = [
     { title: "ВПО — Внутренне перемещённая особа", emoji: "🛶" },
     { title: "Секретарь суда", emoji: "📂" },
-    { title: "Заместитель Алины", emoji: "⚖️" },
+    { title: "Помощник судьи", emoji: "⚖️" },
     { title: "Главный помощник главы суда", emoji: "🏛️" },
 ];
 
 export default function Home() {
+    const [timeLeft, setTimeLeft] = useState("");
+    const [isVisible, setIsVisible] = useState(false);
+
+    useEffect(() => {
+        const targetDate = new Date("2025-12-15T12:00:00"); // 15 декабря 12:00
+        const timer = setInterval(() => {
+            const now = new Date();
+            const diff = targetDate.getTime() - now.getTime();
+
+            if (diff <= 0) {
+                setTimeLeft("Грамота уже опубликована 🎉");
+                clearInterval(timer);
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / 1000 / 60) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+
+            setTimeLeft(`${days}д ${hours}ч ${minutes}м ${seconds}с`);
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, []);
+
     return (
         <div className="flex flex-col min-h-screen bg-gradient-to-br from-zinc-100 via-white to-zinc-200 dark:from-black dark:via-zinc-900 dark:to-black px-4 py-10">
             {/* Hero блок */}
@@ -154,9 +181,12 @@ export default function Home() {
                     <h3 className="text-3xl font-extrabold text-amber-600 dark:text-amber-300 mb-3 animate-bounce">
                         Здесь будет грамота
                     </h3>
-                    <p className="text-zinc-700 dark:text-zinc-300 text-lg">
+                    <p className="text-zinc-700 dark:text-zinc-300 text-lg mb-4">
                         За выдающиеся заслуги в покорении судебной бюрократии, смех и вдохновение коллег!
                     </p>
+                    <div className="text-xl font-semibold text-amber-700 dark:text-amber-400">
+                        ⏳ До публикации грамоты осталось: {timeLeft}
+                    </div>
                 </motion.div>
 
                 {/* Юмористические достижения */}
@@ -180,18 +210,32 @@ export default function Home() {
             </motion.section>
 
 
-            {/* Нижний блок */}
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="text-center mt-16 mb-10"
-            >
-                <p className="text-zinc-600 dark:text-zinc-400">
-                    Зоряна нервно курит в сторонке, наблюдая как Наталия покоряет вершины суда. 🚬😅
-                </p>
-            </motion.div>
+            <div className="text-center mt-16">
+                {/* Кнопка для показа/скрытия */}
+                <button
+                    onClick={() => setIsVisible(!isVisible)}
+                    className="px-6 py-2 rounded-full bg-amber-500 text-white font-semibold shadow-lg hover:bg-amber-600 transition-colors"
+                >
+                    {!isVisible ? "Еще..." : "Спрятать прикол"}
+                </button>
+
+                {/* Скрытая секция */}
+                <AnimatePresence>
+                    {isVisible && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 20 }}
+                            transition={{ duration: 0.5 }}
+                            className="mt-6"
+                        >
+                            <p className="text-zinc-600 dark:text-zinc-400">
+                                Зоряна нервно курит в сторонке, наблюдая как Наталия покоряет вершины суда. 🚬😅
+                            </p>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </div>
         </div>
     );
 }
