@@ -4,26 +4,10 @@ import { motion } from "framer-motion";
 
 export default function Home() {
     const careerSteps = [
-        {
-            title: "ВПО — Внутренне перемещённая особа",
-            description: "Начало пути",
-            icon: "📌",
-        },
-        {
-            title: "Секретарь суда",
-            description: "Первый опыт в судебной системе",
-            icon: "🗂️",
-        },
-        {
-            title: "Заместитель Алины",
-            description: "Помощь и поддержка руководства",
-            icon: "⚖️",
-        },
-        {
-            title: "Главный помощник главы суда",
-            description: "Высокий уровень ответственности",
-            icon: "🏛️",
-        },
+        { title: "ВПО — Внутренне перемещённая особа", description: "Начало пути", icon: "📌" },
+        { title: "Секретарь суда", description: "Первый опыт в судебной системе", icon: "🗂️" },
+        { title: "Заместитель Алины", description: "Помощь и поддержка руководства", icon: "⚖️" },
+        { title: "Главный помощник главы суда", description: "Высокий уровень ответственности", icon: "🏛️" },
     ];
 
     return (
@@ -36,11 +20,23 @@ export default function Home() {
                 transition={{ duration: 0.7 }}
                 className="flex flex-col items-center gap-4"
             >
+                <div className="flex gap-4 items-center mb-2">
+                    <img
+                        src="https://www.svgrepo.com/show/33186/scales.svg"
+                        alt="Весы справедливости"
+                        className="h-10 w-10 text-amber-600 dark:invert"
+                    />
+                    <img
+                        src="https://uxwing.com/wp-content/themes/uxwing/download/justice-law/gavel-law.svg"
+                        alt="Молоток судьи"
+                        className="h-10 w-10 text-amber-600 dark:invert"
+                    />
+                </div>
                 <h1 className="text-4xl font-extrabold text-black dark:text-zinc-50 text-center">
                     Почётная страница
                 </h1>
                 <p className="text-xl text-zinc-700 dark:text-zinc-300 text-center">
-                    Галушко Наталия Олеговна — Главный помощник главы Кировского суда
+                    Галушко Наталия Олеговна <br />— Главный помощник главы Кировского суда
                 </p>
             </motion.div>
 
@@ -86,12 +82,22 @@ export default function Home() {
                 ))}
             </motion.div>
 
+            {/* Нижний блок: Зоряна */}
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.5, duration: 0.8 }}
+                className="mt-12 w-full max-w-3xl rounded-xl border-2 border-dashed border-zinc-300 bg-zinc-100 py-4 text-center text-lg font-medium text-red-600 dark:border-zinc-600 dark:bg-zinc-800 dark:text-red-400"
+            >
+                Зоряна нервно курит в сторонке
+            </motion.div>
+
             {/* Footer */}
             <motion.footer
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1.5, duration: 0.7 }}
-                className="mt-16 text-sm text-zinc-400 dark:text-zinc-500"
+                transition={{ delay: 1.8, duration: 0.7 }}
+                className="mt-6 text-sm text-zinc-400 dark:text-zinc-500"
             >
                 © {new Date().getFullYear()} Страница почёта
             </motion.footer>
